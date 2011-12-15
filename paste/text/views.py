@@ -1,7 +1,7 @@
 # Create your views here.
-from django.shortcuts import render
+from django.shortcuts import render_to_response
 
 
 def show_main(request):
 
-    return render('base.html', {})
+    return render_to_response('base.html', {})
