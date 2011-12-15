@@ -1,4 +1,3 @@
-# Create your views here.
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from paste.text.models import Text
@@ -24,4 +23,7 @@ def display_shouts(request):
         shouts = paginator.page(paginator.num_pages)
 
     return render_to_response('shoutbox/shouts_list.html', {"shouts": shouts})
+
+def new(request):
+    return render_to_response('paste/new.html', {});
 
