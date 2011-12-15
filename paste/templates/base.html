@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css" />
+  <title>{% block title %}Paste your text{% endblock %}</title>
+</head>
+
+<body>
+  <div id="sidebar">
+  {% block sidebar %}
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/user/login/">Login</a></li>
+  </ul>
+  {% endblock %}
+</div>
+
+<div id="content">
+  {% block content %}
+  {% endblock %}
+</div>
+</body>
+</html>
