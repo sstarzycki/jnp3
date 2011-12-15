@@ -1,4 +1,8 @@
 # Django settings for paste project.
+import os
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+def ABS_DIR(rel):
+  return os.path.join(BASE_DIR, rel.replace('/',os.path.sep))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -11,8 +15,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'user_base',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -27,7 +31,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Warsaw'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -103,7 +107,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'paste.urls'
 
 TEMPLATE_DIRS = (
-    'templates/'
+    ABS_DIR("templates"),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
