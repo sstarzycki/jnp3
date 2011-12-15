@@ -158,3 +158,5 @@ LOGGING = {
         },
     }
 }
+
+SHOUTS_ON_MAIN_PAGE_NUMBER = 20
