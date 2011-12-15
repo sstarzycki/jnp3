@@ -5,3 +5,18 @@
         {{ shout.content }}
     {% endfor %}
 {% endblock %}
+<div class="pagination">
+    <span class="step-links">
+        {% if shouts.has_previous %}
+            <a href="?page={{ shouts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ shouts.number }} of {{ shouts.paginator.num_pages }}.
+        </span>
+
+        {% if shouts.has_next %}
+            <a href="?page={{ shouts.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
