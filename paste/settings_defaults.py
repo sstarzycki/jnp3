@@ -15,6 +15,14 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+MEDIA_ROOT = 'media'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+
 mongoengine.connect('paste')
 
 # Local time zone for this installation. Choices can be found here:
@@ -153,4 +161,8 @@ LOGGING = {
     }
 }
 
-SHOUTS_ON_MAIN_PAGE_NUMBER = 20
+LOGIN_EXEMPT_URLS = (
+    r'^media/', # allow any URL under /legal/*
+    r'^$', # allow any URL under /legal/*
+)
+
