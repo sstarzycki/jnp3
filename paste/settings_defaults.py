@@ -1,5 +1,7 @@
 # Django settings for paste project.
 import os
+import mongoengine
+
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 def ABS_DIR(rel):
   return os.path.join(BASE_DIR, rel.replace('/',os.path.sep))
@@ -13,16 +15,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'user_base',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+mongoengine.connect('paste')
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -130,7 +123,7 @@ INSTALLED_APPS = (
 
 AUTHENTICATION_BACKENDS = (
     'django_openid_auth.auth.OpenIDBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    'mongoengine.django.auth.MongoEngineBackend',
 )
 
 OPENID_CREATE_USERS = True

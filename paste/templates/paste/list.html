@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Last 50 pastes</h1>
+    {% for text in object_list %}
+        <h2>{{ text.title }}</h2>
+        {{ text.content }}
+        <a href="/paste/show/{{ text.id }}">Link to this paste</a>
+    {% endfor %}
+{% endblock %}
