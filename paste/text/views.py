@@ -34,6 +34,7 @@ class NewTextView(FormView):
     template_name = 'paste/new.html'
 
     def form_valid(self, form):
-        Text(content=form.cleaned_data['content'],
-            title=form.cleaned_data['title']).save()
-        return HttpResponseRedirect('/paste/list')
+        text = Text(content=form.cleaned_data['content'],
+            title=form.cleaned_data['title'])
+        text.save()
+        return render_to_response('paste/added.html', { "id": text.id })

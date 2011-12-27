@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="/paste/new/" method="post">
-    {{ form }}
+<form action="/paste/new/" method="post" class="clearfix">
+    {{ form.as_p }}
     {% csrf_token %}
-    <input type="submit" name="submit" value="Paste" />
+    <input type="submit" name="submit" value="Paste" class="btn primary" />
 </form>
 {% endblock %}
