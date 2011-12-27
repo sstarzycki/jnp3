@@ -18,7 +18,7 @@ def show_main(request):
 
 class ListTextView(ListView):
     def get_queryset(self):
-        return Text.objects.all()
+        return Text.objects.all().limit(50)
     template_name = 'paste/list.html'
 
 class ShowTextView(TemplateView):
