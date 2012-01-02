@@ -8,47 +8,33 @@ from django.template import RequestContext
 from paste.text.models import Text
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.urlresolvers import reverse
-
+from text.forms import NewTextForm
+from django.views.generic import \
+        CreateView, TemplateView, DeleteView, \
+        DetailView, FormView, ListView
 
 def show_main(request):
-
     return render_to_response('base.html', {})
 
-def display_shouts(request):
+class ListTextView(ListView):
+    def get_queryset(self):
+        return Text.objects.all().limit(50)
+    template_name = 'paste/list.html'
 
-    from settings import SHOUTS_ON_MAIN_PAGE_NUMBER
+class ShowTextView(TemplateView):
+    def get_context_data(self, **kwargs):
+        context = super(ShowTextView, self).get_context_data(**kwargs)
+        context['object'] = Text.objects.get(id=kwargs['pk'])
+        return context
 
-    shouts_list = Text.objects.all()
-    paginator = Paginator(shouts_list, SHOUTS_ON_MAIN_PAGE_NUMBER)
-    page = request.GET.get('page')
-    try:
-        shouts = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        shouts = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        shouts = paginator.page(paginator.num_pages)
+    template_name = 'paste/show.html'
 
-    return render_to_response('shoutbox/shouts_list.html', {"shouts": shouts})
+class NewTextView(FormView):
+    form_class = NewTextForm
+    template_name = 'paste/new.html'
 
-def show(request, paste_id):
-    paste = Text.objects.get(id=paste_id)
-    return render_to_response('paste/paste.html', {'paste': paste}, context_instance = RequestContext(request))
-
-@login_required
-def new(request):
-    return render_to_response('paste/new.html', {}, context_instance = RequestContext(request));
-
-@login_required
-def create(request):
-    try:
-        description = request.POST['description']
-        content = request.POST['content']
-    except MultiValueDictKeyError:
-        return HttpResponseRedirect(reverse('text.views.new'))
-    else:
-        user = request.user
-        past = Text(user=user, content=content, description=description)
-        past.save()
-        return HttpResponseRedirect(reverse('text.views.show', args=[past.id]))
+    def form_valid(self, form):
+        text = Text(content=form.cleaned_data['content'],
+            title=form.cleaned_data['title'])
+        text.save()
+        return render_to_response('paste/added.html', { "id": text.id })
