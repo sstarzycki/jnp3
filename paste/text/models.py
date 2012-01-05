@@ -7,6 +7,7 @@ class Text(mongoengine.Document):
     title = mongoengine.StringField()
     upload_date = mongoengine.DateTimeField(required=False)
     update_date = mongoengine.DateTimeField(required=False)
+    user_id = mongoengine.IntField(required=False)
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
