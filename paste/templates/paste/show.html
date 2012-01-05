@@ -3,4 +3,7 @@
 {% block content %}
 <h2>{{ object.title }}</h2>
 {{ object.content }}
+{% ifequal user.id object.user_id %}
+<a href="/paste/edit/{{ object.id }}">Edit this paste</a>
+{% endifequal %}
 {% endblock %}

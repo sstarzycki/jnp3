@@ -36,5 +36,41 @@ class NewTextView(FormView):
     def form_valid(self, form):
         text = Text(content=form.cleaned_data['content'],
             title=form.cleaned_data['title'])
+        if self.request.user.is_authenticated():
+            text.user_id = self.request.user.id;
         text.save()
         return render_to_response('paste/added.html', { "id": text.id })
+
+class EditTextView(FormView):
+    form_class = NewTextForm
+    template_name = 'paste/edit.html'
+
+    def get(self, request, *args, **kwargs):
+        text = Text.objects.get(id=kwargs['pk'])
+        form = NewTextForm({'title': text.title, 'content': text.content});
+        context = self.get_context_data(**kwargs)
+        context['form'] = form;
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form, request, **kwargs)
+        else:
+            return self.form_invalid(form, **kwargs)
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
+
+    def form_valid(self, form, request, **kwargs):
+        text = Text.objects.get(id=kwargs['pk'])
+        text.content = form.cleaned_data['content']
+        text.title = form.cleaned_data['title']
+        if request.user.is_authenticated:
+            if text.user_id:
+                if request.user.id == text.user_id:
+                    text.save()
+        return render_to_response('paste/edited.html', { "id": text.id });

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="/paste/edit/{{ pk }}/" method="post" class="clearfix">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" name="submit" value="Edit" class="btn primary" />
+</form>
+{% endblock %}
