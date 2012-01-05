@@ -5,6 +5,7 @@ import mongoengine
 class Text(mongoengine.Document):
     content = mongoengine.StringField()
     title = mongoengine.StringField()
+    language = mongoengine.StringField()
     upload_date = mongoengine.DateTimeField(required=False)
     update_date = mongoengine.DateTimeField(required=False)
     user_id = mongoengine.IntField(required=False)

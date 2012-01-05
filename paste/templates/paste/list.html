@@ -4,6 +4,13 @@
 <h1>Last 50 pastes</h1>
     {% for text in object_list %}
         <h2>{{ text.title }}</h2>
+        <p>
+        {% if text.language %}
+            Language: {{text.language}}
+        {% else %}
+            Language not discovered
+        {% endif %}
+        </p>
         {{ text.content }}
         <a href="/paste/show/{{ text.id }}">Link to this paste</a>
     {% endfor %}

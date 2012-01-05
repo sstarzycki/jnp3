@@ -13,6 +13,8 @@ from django.views.generic import \
         CreateView, TemplateView, DeleteView, \
         DetailView, FormView, ListView
 
+from text.language_detector import add_language_to_paste
+
 def show_main(request):
     return render_to_response('base.html', {})
 
@@ -39,6 +41,11 @@ class NewTextView(FormView):
         if self.request.user.is_authenticated():
             text.user_id = self.request.user.id;
         text.save()
+        #TODO This should be asynchronous
+        try:
+            add_language_to_paste(text)
+        except:
+            pass
         return render_to_response('paste/added.html', { "id": text.id })
 
 class EditTextView(FormView):
@@ -73,4 +80,9 @@ class EditTextView(FormView):
             if text.user_id:
                 if request.user.id == text.user_id:
                     text.save()
+                    #TODO This should be asynchronous
+                    try:
+                        add_language_to_paste(text)
+                    except:
+                        pass
         return render_to_response('paste/edited.html', { "id": text.id });
