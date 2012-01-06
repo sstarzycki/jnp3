@@ -2,12 +2,22 @@
 import os
 import mongoengine
 
+import djcelery
+djcelery.setup_loader()
+
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 def ABS_DIR(rel):
   return os.path.join(BASE_DIR, rel.replace('/',os.path.sep))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
+BROKER_HOST = "localhost"
+BROKER_PORT = 5672
+BROKER_USER = "guest"
+BROKER_PASSWORD = "guest"
+BROKER_VHOST = "/"
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -133,6 +143,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_openid_auth',
+    'djcelery',
+    'djkombu',
     'text',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

@@ -25,8 +25,4 @@ def detect_language(text):
     return sorted([(language, lang_diff(language, text)) for language in languages_list],
             key = lambda x: x[1])[0][0]
 
-def add_language_to_paste(text):
-    lang = detect_language(text.content)
-    text.language = lang
-    text.save()
 
