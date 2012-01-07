@@ -1,4 +1,5 @@
 import os
+from django.utils.encoding import smart_str
 from django.conf import settings
 
 languages_list = ['polski', 'english', 'espanol']
@@ -14,7 +15,7 @@ def lang_diff(lang, text):
     os.system('cp %s.txt temp.txt' % lang)
     init_size = measure_size('temp')
     lang_file = open('temp.txt', 'a')
-    lang_file.write(text)
+    lang_file.write(smart_str(text))
     lang_file.close()
     after_size = measure_size('temp')
     os.system('rm temp.txt')
