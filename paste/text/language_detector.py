@@ -2,7 +2,7 @@ import os
 from django.utils.encoding import smart_str
 from django.conf import settings
 
-languages_list = ['polski', 'english', 'espanol']
+languages_list = ['polish', 'english', 'spanish', 'french', 'german']
 language_file_path = 'media/language_patterns/'
 
 def measure_size(filename):
