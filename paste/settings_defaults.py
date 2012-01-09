@@ -154,6 +154,7 @@ INSTALLED_APPS = (
     'django_openid_auth',
     'djcelery',
     'djkombu',
+    'djangorestframework',
     'text',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

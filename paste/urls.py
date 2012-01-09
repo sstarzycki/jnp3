@@ -1,5 +1,8 @@
 from django.conf.urls.defaults import patterns, include, url
 
+from text.api import ListTexts, ShowText
+from djangorestframework.views import ListOrCreateModelView, InstanceModelView
+
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
@@ -22,3 +25,8 @@ urlpatterns += patterns('django.views.static',
                 { 'document_root': 'media/',
                  'show_indexes': True }),)
 
+
+urlpatterns += patterns("api",
+    url(r'^api/$', ListTexts.as_view()),
+    url(r'^api/(?P<key>[A-Za-z0-9]*$)', ShowText.as_view()),
+)
