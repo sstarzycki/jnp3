@@ -8,7 +8,8 @@ from django.template import RequestContext
 from paste.text.models import Text
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.urlresolvers import reverse
-from text.forms import NewTextForm
+from text.forms import NewTextForm, SearchForm
+from django.db import connections
 from django.views.generic import \
         CreateView, TemplateView, DeleteView, \
         DetailView, FormView, ListView
@@ -78,3 +79,16 @@ class EditTextView(FormView):
                     text.save()
                     add_language_to_paste.delay(text)
         return render_to_response('paste/edited.html', { "id": text.id });
+
+class SearchView(ListView):
+    template_name = "paste/search.html"
+
+    def get_queryset(self):
+        phrase = self.request.GET.get('search', '')
+        cursor = connections['sphinx'].cursor()
+        cursor.execute("select * from paste where match('" + phrase + "');")
+        obj = cursor.fetchall();
+        return [ Text.objects.get(id=col[0]) for col in obj]
+
+        
+    

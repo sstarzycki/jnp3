@@ -15,9 +15,10 @@ TEMPLATE_DEBUG = DEBUG
 BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
 BROKER_HOST = "localhost"
 BROKER_PORT = 5672
-BROKER_USER = "guest"
-BROKER_PASSWORD = "guest"
+BROKER_USER = "szymon"
+BROKER_PASSWORD = ""
 BROKER_VHOST = "/"
+
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -40,6 +41,14 @@ DATABASES = {
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    },
+    'sphinx': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '9306',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
