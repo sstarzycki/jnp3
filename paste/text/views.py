@@ -8,7 +8,7 @@ from django.template import RequestContext
 from paste.text.models import Text
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.urlresolvers import reverse
-from text.forms import NewTextForm, SearchForm
+from text.forms import NewTextForm
 from django.db import connections
 from django.views.generic import \
         CreateView, TemplateView, DeleteView, \
