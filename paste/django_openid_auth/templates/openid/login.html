@@ -1,20 +1,7 @@
-{% load i18n %}
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<title>Sign in with your OpenID</title>
-<style type="text/css">
-input.openid {
-    background: url({% url openid-logo %}) no-repeat;
-    background-position: 0 50%;
-    padding-left: 16px;
-}
-</style>
-</head>
-<body>
-<h1>Sign in with your OpenID</h1>
+{% extends "base.html" %}
+{% block content %}
 {% if form.errors %}
-<p class="errors">{% trans "Please correct errors below:" %}<br />
+<p class="errors">Please correct errors below:<br />
     {% if form.openid_identifier.errors %}
     <span class="error">{{ form.openid_identifier.errors|join:", " }}</span>
     {% endif %}
@@ -26,13 +13,13 @@ input.openid {
 <form name="fopenid" action="{{ action }}" method="post">
     {% csrf_token %}
     <fieldset>
-        <legend>{% trans "Sign In Using Your OpenID" %}</legend>
+        <legend>Sign In Using Your OpenID</legend>
         <div class="form-row">
-            <label for="id_openid_identifier">{% trans "OpenID:" %}</label><br />
+            OpenID:
             {{ form.openid_identifier }}
         </div>
         <div class="submit-row ">
-            <input name="bsignin" type="submit" value="{% trans "Sign in" %}">
+            <input name="bsignin" type="submit" value="Sign in">
         </div>
  {% if next %}
         <input type="hidden" name="next" value="{{ next }}" />
@@ -41,3 +28,4 @@ input.openid {
 </form>
 </body>
 </html>
+{% endblock %}

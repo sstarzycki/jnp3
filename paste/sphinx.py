@@ -29,7 +29,7 @@ def paste_to_xml(p):
     #print u.encode( "utf-8" ,
     print "</content>",
     print "<title>",
-    print escape(smart_str((p.title)))
+    print smart_str(escape((p.title)))
     print "</title>"
     print "<uploaddate>"
     print str(p.upload_date)

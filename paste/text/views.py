@@ -88,7 +88,16 @@ class SearchView(ListView):
         cursor = connections['sphinx'].cursor()
         cursor.execute("select * from paste where match('" + phrase + "');")
         obj = cursor.fetchall();
-        return [ Text.objects.get(id=col[0]) for col in obj]
+        texts = []
+        for col in obj:
+            try:
+                t = Text.objects.get(id=col[0])
+            except:
+                pass
+            else:
+                texts.append(t)
+        #[ Text.objects.get(id=col[0]) for col in obj]
+        return texts
 
         
     
