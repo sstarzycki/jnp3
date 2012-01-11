@@ -23,7 +23,7 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter',
     'compressor.filters.css_default.CssAbsoluteFilter']
 COMPRESS_ENABLED = True
 COMPRESS_ROOT = "media/"
-COMPRESS_URL = "media/"
+COMPRESS_URL = "/media/"
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
