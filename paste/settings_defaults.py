@@ -19,6 +19,11 @@ BROKER_USER = "szymon"
 BROKER_PASSWORD = ""
 BROKER_VHOST = "/"
 
+COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter',
+    'compressor.filters.css_default.CssAbsoluteFilter']
+COMPRESS_ENABLED = True
+COMPRESS_ROOT = "media/"
+COMPRESS_URL = "media/"
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -31,6 +36,7 @@ MEDIA_ROOT = 'media'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 DATABASES = {
@@ -109,14 +115,6 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '_o799+4u3gvcu6x9)-9gkvrp&$5(jmi&^^@lq2=x72^dpl0wnk'
 
@@ -155,6 +153,7 @@ INSTALLED_APPS = (
     'django_openid_auth',
     'djcelery',
     'djkombu',
+    'compressor',
     'djangorestframework',
     'text',
     # Uncomment the next line to enable the admin:

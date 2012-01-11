@@ -1,7 +1,11 @@
+{% load compress %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/media/bootstrap.css" />
+  {% compress css %}
+      <link rel="stylesheet" href="media/bootstrap.css" />
+  {% endcompress %}
   <title>{% block title %}Paste your text{% endblock %}</title>
 </head>
 
