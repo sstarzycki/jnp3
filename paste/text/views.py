@@ -10,6 +10,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.core.urlresolvers import reverse
 from text.forms import NewTextForm
 from django.db import connections
+from django.utils.html import escape
 from django.views.generic import \
         CreateView, TemplateView, DeleteView, \
         DetailView, FormView, ListView
@@ -86,7 +87,7 @@ class SearchView(ListView):
     def get_queryset(self):
         phrase = self.request.GET.get('search', '')
         cursor = connections['sphinx'].cursor()
-        cursor.execute("select * from paste where match('" + phrase + "');")
+        cursor.execute("select * from paste where match('" + escape(phrase) + "');")
         obj = cursor.fetchall();
         texts = []
         for col in obj:
